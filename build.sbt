@@ -1,6 +1,6 @@
-lazy val testutils = (project in file("."))
+lazy val mockitoSugar = (project in file("."))
   .settings(
-    name := "test-utils",
+    name := "mockito-sugar",
     organization := "ru.dokwork",
     scalaVersion := "2.11.11",
     crossScalaVersions := Seq("2.11.11", "2.12.4"),
