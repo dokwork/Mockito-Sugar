@@ -2,7 +2,7 @@
 
 [![Build Status](https://travis-ci.org/dokwork/mockito-sugar.svg?branch=master)](https://travis-ci.org/dokwork/mockito-sugar) [ ![Download](https://api.bintray.com/packages/dokwork/maven/mockito-sugar/images/download.svg) ](https://bintray.com/dokwork/maven/mockito-sugar/_latestVersion)
  
-This project provides syntax sugar for methods from [Mockito project](http://site.mockito.org).
+This project provides syntax sugar for methods from [Mockito](http://site.mockito.org) project.
 
 ## Install
 
