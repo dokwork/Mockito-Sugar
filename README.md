@@ -13,7 +13,7 @@ libraryDependencies += "ru.dokwork" %% "mockito-sugar" % "<version>" % "test"
 
 ## Features
 
-1. Short versions for methods with argument of `Class[T]`:
+* Short versions for methods with argument of `Class[T]`:
     * `org.mockito.Mockito.mock`
     * `org.mockito.ArgumentMatchers.any`
 
@@ -26,7 +26,7 @@ libraryDependencies += "ru.dokwork" %% "mockito-sugar" % "<version>" % "test"
     mock[MyClass]
     ```   
     
-1. Simple method for create `ArgumentCaptor`:
+* Simple method for create `ArgumentCaptor`:
     ```scala
     "Examples for argument captor" in new Mockito {
         // given:
@@ -40,7 +40,7 @@ libraryDependencies += "ru.dokwork" %% "mockito-sugar" % "<version>" % "test"
     }
     ```    
 
-1. Sugar for argument matchers:
+* Sugar for argument matchers:
     ```scala
     "Example for argument matchers" in new Mockito {
         // given:
@@ -53,7 +53,7 @@ libraryDependencies += "ru.dokwork" %% "mockito-sugar" % "<version>" % "test"
     }
     ```
     
-1. Implicit  conversion functions to Answers: 
+* Implicit  conversion functions to Answers: 
      ```scala
     "Example for implicit answer" in new Mockito {
         // given:
