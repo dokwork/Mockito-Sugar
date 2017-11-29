@@ -15,6 +15,17 @@ class MockitoExamples extends FreeSpec with Mockito {
     // or: verify(list).slice(any[Int], argThat[Int](_ > 0))
   }
 
+  "Examples for argument captor" in {
+    // given:
+    val list: List[Int] = mock[List[Int]]
+    val captor = argumentCaptor[Int]
+    // when:
+    list.take(5)
+    verify(list).take(captor.capture())
+    // then:
+    assert(captor.getValue == 5)
+  }
+
   "Example for implicit answer" in {
     // given:
     val list: List[Int] = mock[List[Int]]

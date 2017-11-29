@@ -74,7 +74,7 @@ trait Mockito extends Answers {
   /**
     * This equals to: {{{  org.mockito.ArgumentCaptor.forClass(classOf[T])  }}}
     */
-  def captor[T: Manifest]: ArgumentCaptor[T] = ArgumentCaptor.forClass(clazz)
+  def argumentCaptor[T: Manifest]: ArgumentCaptor[T] = ArgumentCaptor.forClass(clazz)
 
   private def clazz[T: Manifest]: Class[T] = manifest.runtimeClass.asInstanceOf[Class[T]]
 }

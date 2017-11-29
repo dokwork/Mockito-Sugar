@@ -1,7 +1,19 @@
-## Mockito Sugar 
+# Mockito Sugar 
+
+[![Build Status](https://travis-ci.org/dokwork/Mockito-Sugar.svg?branch=master)](https://travis-ci.org/dokwork/Mockito-Sugar) [ ![Download](https://api.bintray.com/packages/dokwork/maven/mockito-sugar/images/download.svg) ](https://bintray.com/dokwork/maven/mockito-sugar/_latestVersion)
+ 
 This project provides syntax sugar for methods from [Mockito project](http://site.mockito.org).
 
-1. Short versions for methods with `Class[T]` arguments:
+## Install
+
+```scala
+resolvers += Resolver.jcenterRepo // only for sbt before 0.13.6
+libraryDependencies += "ru.dokwork" %% "mockito-sugar" % "<version>" % "test"
+```
+
+## Features
+
+1. Short versions for methods with argument of `Class[T]`:
     * `org.mockito.Mockito.mock`
     * `org.mockito.ArgumentMatchers.any`
 
@@ -13,10 +25,24 @@ This project provides syntax sugar for methods from [Mockito project](http://sit
     ```scala
     mock[MyClass]
     ```   
+    
+1. Simple method for create `ArgumentCaptor`:
+    ```scala
+    "Examples for argument captor" in new Mockito {
+        // given:
+        val list: List[Int] = mock[List[Int]]
+        val captor = argumentCaptor[Int]
+        // when:
+        list.take(5)
+        verify(list).take(captor.capture())
+        // then:
+        assert(captor.getValue == 5)
+    }
+    ```    
 
 1. Sugar for argument matchers:
     ```scala
-    "Example for argument matchers" in {
+    "Example for argument matchers" in new Mockito {
         // given:
         val list: List[Int] = mock[List[Int]]
         // when:
