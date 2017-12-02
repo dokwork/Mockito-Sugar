@@ -1,4 +1,4 @@
-package ru.dokwork.test.sugar
+package ru.dokwork.sugar.mockito
 
 import org.mockito.invocation.InvocationOnMock
 import org.mockito.stubbing.Answer

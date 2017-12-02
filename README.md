@@ -8,7 +8,8 @@ This project provides syntax sugar for methods from [Mockito](http://site.mockit
 
 ```scala
 resolvers += Resolver.jcenterRepo // only for sbt before 0.13.6
-libraryDependencies += "ru.dokwork" %% "mockito-sugar" % "<version>" % "test"
+libraryDependencies += "org.mockito" % "mockito-core"   % "2.12.0"    % "test"
+libraryDependencies += "ru.dokwork"  %% "mockito-sugar" % "<version>" % "test"
 ```
 
 ## Features
@@ -21,14 +22,14 @@ libraryDependencies += "ru.dokwork" %% "mockito-sugar" % "<version>" % "test"
     ```scala 
     org.mockito.Mockito.mock(classOf[MyClass]) 
     ```
-    you can use method from the trait [Mockito](/src/main/scala/ru/dokwork/test/sugar/Mockito.scala):
+    you can use method from the trait [Mockito](/ru/dokwork/sugar/Mockito.scala):
     ```scala
     mock[MyClass]
     ```   
     
 * Simple method for create `ArgumentCaptor`:
     ```scala
-    "Examples for argument captor" in new Mockito {
+    "Examples for argument captor" in new MockitoSugar {
         // given:
         val list: List[Int] = mock[List[Int]]
         val captor = argumentCaptor[Int]
@@ -42,7 +43,7 @@ libraryDependencies += "ru.dokwork" %% "mockito-sugar" % "<version>" % "test"
 
 * Sugar for argument matchers:
     ```scala
-    "Example for argument matchers" in new Mockito {
+    "Example for argument matchers" in new MockitoSugar {
         // given:
         val list: List[Int] = mock[List[Int]]
         // when:
@@ -55,7 +56,7 @@ libraryDependencies += "ru.dokwork" %% "mockito-sugar" % "<version>" % "test"
     
 * Implicit  conversion functions to Answers: 
      ```scala
-    "Example for implicit answer" in new Mockito {
+    "Example for implicit answer" in new MockitoSugar {
         // given:
         val list: List[Int] = mock[List[Int]]
         // when:
@@ -65,6 +66,18 @@ libraryDependencies += "ru.dokwork" %% "mockito-sugar" % "<version>" % "test"
     }
     ```
     Arguments for functions will be arguments of the method which answer used for.
+    
+* Provides [scalatest](http://www.scalatest.org)'s like matchers for mock verification:
+    ```scala
+    "Example of use" in new MockitoSugar {
+        // given:
+        val list: List[Int] = mock[List[Int]]
+        // when:
+        list.take(5)
+        // then:
+        list shouldHave invocation(_.take(*[Int]), atLeast(1)) // type of this expression is org.scalatest.Assertion
+      }
+    ```
     
 See more examples here: [ru.dokwork.test.sugar.MockitoExamples](/src/test/scala/ru/dokwork/test/sugar/MockitoExamples.scala)
     

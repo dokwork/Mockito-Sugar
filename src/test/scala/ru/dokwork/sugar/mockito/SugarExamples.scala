@@ -1,9 +1,9 @@
-package ru.dokwork.test.sugar
+package ru.dokwork.sugar.mockito
 
-import org.scalatest.FreeSpec
 import org.mockito.Mockito._
+import org.scalatest.FreeSpec
 
-class MockitoExamples extends FreeSpec with Mockito {
+class SugarExamples extends FreeSpec with Sugar {
 
   "Example for argument matchers" in {
     // given:
