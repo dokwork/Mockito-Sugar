@@ -3,7 +3,7 @@ package ru.dokwork.sugar.mockito
 import org.mockito.Mockito._
 import org.scalatest.FreeSpec
 
-class SugarExamples extends FreeSpec with Sugar {
+class MockitoSugarExamples extends FreeSpec with MockitoSugar {
 
   "Example for argument matchers" in {
     // given:
@@ -33,5 +33,14 @@ class SugarExamples extends FreeSpec with Sugar {
     doAnswer((n: Int) ⇒ (1 to n).toList).when(list).take(*[Int])
     // then:
     assert(list.take(5) == (1 to 5).toList)
+  }
+
+  "Example with shouldHave matcher" in {
+    // given:
+    val list: List[Int] = mock[List[Int]]
+    // when:
+    list.take(5)
+    // then:
+    list shouldHave invocation(_.take(*[Int]), atLeast(1))
   }
 }

@@ -18,7 +18,7 @@ import org.scalatest.Assertion
  *  list shouldHave invocation(_.take(*[Int]), atLeast(1))
  * }}}
  */
-trait Matchers {
+trait ShouldHaveMatcher {
 
   case class MockInvocation[T](mode: VerificationMode, f: (T) ⇒ Unit)
 
@@ -27,7 +27,7 @@ trait Matchers {
   implicit class MockShouldWrapper[T](val mock: T) {
 
     /**
-     * @see [[ru.dokwork.sugar.mockito.Matchers]]
+     * @see [[ru.dokwork.sugar.mockito.ShouldHaveMatcher]]
      */
     def shouldHave(invocation: MockInvocation[T]) = new Assertion {
       invocation.f(verify(mock, invocation.mode))

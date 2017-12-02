@@ -6,10 +6,20 @@ This project provides syntax sugar for methods from [Mockito](http://site.mockit
 
 ## Install
 
+Add this to your sbt project:
 ```scala
 resolvers += Resolver.jcenterRepo // only for sbt before 0.13.6
-libraryDependencies += "org.mockito" % "mockito-core"   % "2.12.0"    % "test"
 libraryDependencies += "ru.dokwork"  %% "mockito-sugar" % "<version>" % "test"
+```
+
+This library doesn't provide any dependencies. It's mean that your should add
+`mockito` library explicitly:
+```scala 
+libraryDependencies += "org.mockito" % "mockito-core" % "2.x.x" % "test"
+```
+If you wish to use the sugar for `scalatest` your should add it explicitly too:
+```scala 
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.x.x" % "test"
 ```
 
 ## Features
@@ -79,7 +89,7 @@ libraryDependencies += "ru.dokwork"  %% "mockito-sugar" % "<version>" % "test"
       }
     ```
     
-See more examples here: [ru.dokwork.test.sugar.MockitoExamples](/src/test/scala/ru/dokwork/test/sugar/MockitoExamples.scala)
+See more examples here: [ru.dokwork.sugar.mockito.MockitoSugarExamples](/src/test/scala/ru/dokwork/sugar/mockito/MockitoSugarExamples.scala)
     
 
     

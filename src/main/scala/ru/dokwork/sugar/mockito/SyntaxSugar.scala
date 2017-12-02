@@ -4,14 +4,20 @@ import org.mockito.stubbing.Answer
 import org.mockito._
 
 /**
-  * Provides syntax sugar for methods from [[http://site.mockito.org/ Mockito project]].
+  * Provides syntax sugar for methods:
+  *
+  * - [[org.mockito.Mockito#mock(java.lang.Class) mock]]
+  * - [[org.mockito.ArgumentMatchers#any(java.lang.Class) any]]
+  * - [[org.mockito.ArgumentMatchers#argThat(org.mockito.ArgumentMatcher) argThat]]
+  *
+  * and method for create [[org.mockito.ArgumentCaptor]]
   *
   * @example Instead use [[org.mockito.Mockito#mock(java.lang.Class) mock method]] directly like:
   *          {{{  org.mockito.Mockito.mock(classOf[MyClass])          }}}
   *          you can use method from this trait:
   *          {{{  mock[MyClass]                                       }}}
   */
-trait Sugar {
+trait SyntaxSugar {
 
   /**
     * This equals to: {{{  org.mockito.Mockito.mock(classOf[T])  }}}
