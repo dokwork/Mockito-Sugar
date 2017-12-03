@@ -30,7 +30,7 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.x.x" % "test"
     ```scala 
     org.mockito.Mockito.mock(classOf[MyClass]) 
     ```
-    you can use method from the trait [Mockito](/ru/dokwork/sugar/Mockito.scala):
+    you can use short version:
     ```scala
     mock[MyClass]
     ```   
@@ -83,9 +83,8 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.x.x" % "test"
         // when:
         list.take(5)
         // then:
-        list shouldHave invocation(_.take(*[Int]), atLeast(1)) // type of this expression is org.scalatest.Assertion
-        // equals to verify(list, atLeast(1)).take(*[Int]), 
-        // but returns Assert instead List
+        list shouldHave invocation(_.take(*[Int]), atLeast(1)) // type of this expression is org.scalatest.Assertion.
+        // This is equals to verify(list, atLeast(1)).take(*[Int]), but returns Assert instead List.
       }
     ```
     
