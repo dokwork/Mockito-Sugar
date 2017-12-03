@@ -9,16 +9,17 @@ lazy val mockitoSugar = (project in file("."))
       "org.mockito" % "mockito-core" % "2.12.0" % "provided",
       "org.scalatest" %% "scalatest" % "3.0.4" % "provided",
       // tests:
-      "org.scalatest" %% "scalatest" % "3.0.0" % "test"
+      "org.scalatest" %% "scalatest" % "3.0.0" % "test",
+      "org.scalacheck" %% "scalacheck" % "1.13.4" % "test"
     ),
     releaseCrossBuild := true,
     licenses += ("MIT", url("http://opensource.org/licenses/MIT")),
     pomExtra :=
       <developers>
-	    <developer>
-	      <id>dokwork</id>
-	      <name>Vladimir Popov</name>
-	      <url>http://dokwork.ru</url>
-	    </developer>
-	  </developers>
+        <developer>
+          <id>dokwork</id>
+          <name>Vladimir Popov</name>
+          <url>http://dokwork.ru</url>
+        </developer>
+      </developers>
   )

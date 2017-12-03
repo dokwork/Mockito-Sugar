@@ -27,9 +27,16 @@ trait ShouldHaveMatcher {
   implicit class MockShouldWrapper[T](val mock: T) {
 
     /**
-     * @see [[ru.dokwork.sugar.mockito.ShouldHaveMatcher]]
-     */
-    def shouldHave(invocation: MockInvocation[T]) = new Assertion {
+      * @example {{{
+      *  // given:
+      *  val list: List[Int] = mock[List[Int]]
+      *  // when:
+      *  list.take(5)
+      *  // then:
+      *  list shouldHave invocation(_.take(*[Int]), atLeast(1))
+      * }}}
+      */
+    def shouldHave(invocation: MockInvocation[T]): Assertion = new Assertion {
       invocation.f(verify(mock, invocation.mode))
     }
   }

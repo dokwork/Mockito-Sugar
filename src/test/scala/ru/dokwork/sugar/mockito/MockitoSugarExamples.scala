@@ -2,6 +2,7 @@ package ru.dokwork.sugar.mockito
 
 import org.mockito.Mockito._
 import org.scalatest.FreeSpec
+import org.scalatest.prop.PropertyChecks
 
 class MockitoSugarExamples extends FreeSpec with MockitoSugar {
 
@@ -42,5 +43,16 @@ class MockitoSugarExamples extends FreeSpec with MockitoSugar {
     list.take(5)
     // then:
     list shouldHave invocation(_.take(*[Int]), atLeast(1))
+  }
+
+  "Property-based test with shouldHave matcher" in new PropertyChecks {
+    forAll { (i: Int) ⇒
+      // given:
+      val list: List[Int] = mock[List[Int]]
+      // when:
+      list.take(i)
+      // then:
+      list shouldHave invocation(_.take(i))
+    }
   }
 }
