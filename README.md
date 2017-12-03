@@ -6,43 +6,52 @@ This project provides syntax sugar for methods from [Mockito](http://site.mockit
 
 ## Install
 
+Add this to your sbt project:
 ```scala
 resolvers += Resolver.jcenterRepo // only for sbt before 0.13.6
-libraryDependencies += "ru.dokwork" %% "mockito-sugar" % "<version>" % "test"
+libraryDependencies += "ru.dokwork"  %% "mockito-sugar" % "<version>" % "test"
+```
+
+This library doesn't provide any dependencies. It's mean that your should add
+`mockito` library explicitly:
+```scala 
+libraryDependencies += "org.mockito" % "mockito-core" % "2.x.x" % "test"
+```
+If you wish to use the sugar for `scalatest` your should add it explicitly too:
+```scala 
+libraryDependencies += "org.scalatest" %% "scalatest" % "3.x.x" % "test"
 ```
 
 ## Features
 
 * Short versions for methods with argument of `Class[T]`:
-    * `org.mockito.Mockito.mock`
-    * `org.mockito.ArgumentMatchers.any`
 
-    Instead use `org.mockito.Mockito#mock(java.lang.Class)` directly like:
+    for example instead use `org.mockito.Mockito#mock(java.lang.Class)` directly like:
     ```scala 
     org.mockito.Mockito.mock(classOf[MyClass]) 
     ```
-    you can use method from the trait [Mockito](/src/main/scala/ru/dokwork/test/sugar/Mockito.scala):
+    you can use short version:
     ```scala
     mock[MyClass]
     ```   
     
-* Simple method for create `ArgumentCaptor`:
+* Sugar for `ArgumentCaptor`:
     ```scala
-    "Examples for argument captor" in new Mockito {
+    "Examples for argument captor" in new MockitoSugar {
         // given:
         val list: List[Int] = mock[List[Int]]
         val captor = argumentCaptor[Int]
         // when:
         list.take(5)
-        verify(list).take(captor.capture())
+        verify(list).take(captor)
         // then:
-        assert(captor.getValue == 5)
+        assert(captor.last == 5)
     }
     ```    
 
 * Sugar for argument matchers:
     ```scala
-    "Example for argument matchers" in new Mockito {
+    "Example for argument matchers" in new MockitoSugar {
         // given:
         val list: List[Int] = mock[List[Int]]
         // when:
@@ -55,7 +64,7 @@ libraryDependencies += "ru.dokwork" %% "mockito-sugar" % "<version>" % "test"
     
 * Implicit  conversion functions to Answers: 
      ```scala
-    "Example for implicit answer" in new Mockito {
+    "Example for implicit answer" in new MockitoSugar {
         // given:
         val list: List[Int] = mock[List[Int]]
         // when:
@@ -64,9 +73,22 @@ libraryDependencies += "ru.dokwork" %% "mockito-sugar" % "<version>" % "test"
         assert(list.take(5) == (1 to 5).toList)
     }
     ```
-    Arguments for functions will be arguments of the method which answer used for.
+    Arguments for functions will be the same arguments of the method which answer used for.
     
-See more examples here: [ru.dokwork.test.sugar.MockitoExamples](/src/test/scala/ru/dokwork/test/sugar/MockitoExamples.scala)
+* Provides [scalatest](http://www.scalatest.org)'s like matchers for mock verification:
+    ```scala
+    "Example of use" in new MockitoSugar {
+        // given:
+        val list: List[Int] = mock[List[Int]]
+        // when:
+        list.take(5)
+        // then:
+        list shouldHave invocation(_.take(*[Int]), atLeast(1)) // type of this expression is org.scalatest.Assertion.
+        // This is equals to verify(list, atLeast(1)).take(*[Int]), but returns Assertion instead List.
+      }
+    ```
+    
+See more examples here: [ru.dokwork.sugar.mockito.MockitoSugarExamples](/src/test/scala/ru/dokwork/sugar/mockito/MockitoSugarExamples.scala)
     
 
     

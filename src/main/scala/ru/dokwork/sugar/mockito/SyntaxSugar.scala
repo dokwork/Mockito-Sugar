@@ -1,17 +1,23 @@
-package ru.dokwork.test.sugar
+package ru.dokwork.sugar.mockito
 
 import org.mockito.stubbing.Answer
-import org.mockito.{ArgumentCaptor, ArgumentMatcher, ArgumentMatchers, MockSettings, Mockito }
+import org.mockito._
 
 /**
-  * Provides syntax sugar for methods from [[http://site.mockito.org/ Mockito project]].
+  * Provides syntax sugar for methods:
+  *
+  * - [[org.mockito.Mockito#mock(java.lang.Class) mock]]
+  * - [[org.mockito.ArgumentMatchers#any(java.lang.Class) any]]
+  * - [[org.mockito.ArgumentMatchers#argThat(org.mockito.ArgumentMatcher) argThat]]
+  *
+  * and method for create [[org.mockito.ArgumentCaptor]]
   *
   * @example Instead use [[org.mockito.Mockito#mock(java.lang.Class) mock method]] directly like:
   *          {{{  org.mockito.Mockito.mock(classOf[MyClass])          }}}
   *          you can use method from this trait:
   *          {{{  mock[MyClass]                                       }}}
   */
-trait Mockito extends Answers {
+trait SyntaxSugar {
 
   /**
     * This equals to: {{{  org.mockito.Mockito.mock(classOf[T])  }}}
@@ -49,7 +55,7 @@ trait Mockito extends Answers {
   }
 
   /**
-    * This equals to [[ru.dokwork.test.sugar.Mockito#any(scala.reflect.Manifest)]]
+    * This equals to [[org.mockito.Mockito#any(scala.reflect.Manifest)]]
     */
   def *[T: Manifest]: T = {
     ArgumentMatchers.any(clazz)
@@ -67,14 +73,9 @@ trait Mockito extends Answers {
   }
 
   /**
-    * This equals to [[ru.dokwork.test.sugar.Mockito#argThat(scala.Function1)]]
+    * This equals to [[org.mockito.Mockito#argThat(scala.Function1)]]
     */
   def ==[T](f: (T) ⇒ Boolean): T = argThat(f)
-
-  /**
-    * This equals to: {{{  org.mockito.ArgumentCaptor.forClass(classOf[T])  }}}
-    */
-  def argumentCaptor[T: Manifest]: ArgumentCaptor[T] = ArgumentCaptor.forClass(clazz)
 
   private def clazz[T: Manifest]: Class[T] = manifest.runtimeClass.asInstanceOf[Class[T]]
 }
