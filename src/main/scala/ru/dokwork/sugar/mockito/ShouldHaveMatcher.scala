@@ -15,6 +15,18 @@ import scala.util.{ Failure, Success, Try }
   */
 trait ShouldHaveMatcher {
 
+  case class MockInvocation[T](f: (T) ⇒ Unit, mode: VerificationMode)
+
+  /**
+    * Creates verification of method invocation to check it with
+    * [[ru.dokwork.sugar.mockito.ShouldHaveMatcher.ShouldVerifyWrapper#shouldHave(ru.dokwork.sugar.mockito.ShouldHaveMatcher.MockInvocation) shouldHave]]
+    * word.
+    *
+    * @param f function to invoke verified method on the mock.
+    * @param mode see [[org.mockito.verification.VerificationMode VerificationMode]].
+    *             Default is `times(1)`.
+    * @tparam T type of the mock.
+    */
   def invocation[T](f: (T) ⇒ Unit, mode: VerificationMode = times(1)): MockInvocation[T] = {
     MockInvocation(f, mode)
   }
@@ -29,6 +41,8 @@ trait ShouldHaveMatcher {
       *  list.take(5)
       *  // then:
       *  list shouldHave invocation(_.take(*[Int]), atLeast(1))
+      *  // equals to verify(list, atLeast(1)).take(*[Int]),
+      *  // but returns Assert instead List
       * }}}
       */
     def shouldHave(invocation: MockInvocation[T]): Assertion = {
@@ -42,5 +56,3 @@ trait ShouldHaveMatcher {
     }
   }
 }
-
-case class MockInvocation[T](f: (T) ⇒ Unit, mode: VerificationMode)

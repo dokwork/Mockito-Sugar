@@ -35,7 +35,7 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.x.x" % "test"
     mock[MyClass]
     ```   
     
-* Simple method for create `ArgumentCaptor`:
+* Sugar for `ArgumentCaptor`:
     ```scala
     "Examples for argument captor" in new MockitoSugar {
         // given:
@@ -43,9 +43,9 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.x.x" % "test"
         val captor = argumentCaptor[Int]
         // when:
         list.take(5)
-        verify(list).take(captor.capture())
+        verify(list).take(captor)
         // then:
-        assert(captor.getValue == 5)
+        assert(captor.last == 5)
     }
     ```    
 
@@ -73,7 +73,7 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.x.x" % "test"
         assert(list.take(5) == (1 to 5).toList)
     }
     ```
-    Arguments for functions will be arguments of the method which answer used for.
+    Arguments for functions will be the same arguments of the method which answer used for.
     
 * Provides [scalatest](http://www.scalatest.org)'s like matchers for mock verification:
     ```scala
@@ -84,6 +84,8 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.x.x" % "test"
         list.take(5)
         // then:
         list shouldHave invocation(_.take(*[Int]), atLeast(1)) // type of this expression is org.scalatest.Assertion
+        // equals to verify(list, atLeast(1)).take(*[Int]), 
+        // but returns Assert instead List
       }
     ```
     
