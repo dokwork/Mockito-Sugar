@@ -84,7 +84,7 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.x.x" % "test"
         list.take(5)
         // then:
         list shouldHave invocation(_.take(*[Int]), atLeast(1)) // type of this expression is org.scalatest.Assertion.
-        // This is equals to verify(list, atLeast(1)).take(*[Int]), but returns Assert instead List.
+        // This is equals to verify(list, atLeast(1)).take(*[Int]), but returns Assertion instead List.
       }
     ```
     
