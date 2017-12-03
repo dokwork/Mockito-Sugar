@@ -25,10 +25,8 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.x.x" % "test"
 ## Features
 
 * Short versions for methods with argument of `Class[T]`:
-    * `org.mockito.Mockito.mock`
-    * `org.mockito.ArgumentMatchers.any`
 
-    Instead use `org.mockito.Mockito#mock(java.lang.Class)` directly like:
+    for example instead use `org.mockito.Mockito#mock(java.lang.Class)` directly like:
     ```scala 
     org.mockito.Mockito.mock(classOf[MyClass]) 
     ```

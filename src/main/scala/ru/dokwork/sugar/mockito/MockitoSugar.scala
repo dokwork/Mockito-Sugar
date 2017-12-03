@@ -6,5 +6,6 @@ package ru.dokwork.sugar.mockito
   * @see [[SyntaxSugar]]
   * @see [[Answers]]
   * @see [[ShouldHaveMatcher]]
+  * @see [[RichArgumentCaptor]]
   */
-trait MockitoSugar extends SyntaxSugar with Answers with ShouldHaveMatcher
+trait MockitoSugar extends SyntaxSugar with Answers with ShouldHaveMatcher with RichArgumentCaptor

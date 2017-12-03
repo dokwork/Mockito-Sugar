@@ -19,7 +19,7 @@ trait ShouldHaveMatcher {
     MockInvocation(f, mode)
   }
 
-  implicit class MockShouldWrapper[T](val mock: T)(implicit pos: source.Position, p: Prettifier) {
+  implicit class ShouldVerifyWrapper[T](val mock: T)(implicit pos: source.Position, p: Prettifier) {
 
     /**
       * @example {{{

@@ -1,7 +1,7 @@
 package ru.dokwork.sugar.mockito
 
 import org.mockito.Mockito._
-import org.scalatest.{ FreeSpec, Matchers }
+import org.scalatest.FreeSpec
 import org.scalatest.prop.PropertyChecks
 
 class MockitoSugarExamples extends FreeSpec with MockitoSugar {
@@ -22,9 +22,9 @@ class MockitoSugarExamples extends FreeSpec with MockitoSugar {
     val captor = argumentCaptor[Int]
     // when:
     list.take(5)
-    verify(list).take(captor.capture())
+    verify(list).take(captor)
     // then:
-    assert(captor.getValue == 5)
+    assert(captor.last == 5)
   }
 
   "Example for implicit answer" in {
@@ -45,7 +45,7 @@ class MockitoSugarExamples extends FreeSpec with MockitoSugar {
     list shouldHave invocation(_.take(*[Int]), atLeast(1))
   }
 
-  "Property-based test with shouldHave matcher" in new PropertyChecks with Matchers {
+  "Property-based test with shouldHave matcher" in new PropertyChecks {
     forAll { (i: Int) ⇒
       // given:
       val list: List[Int] = mock[List[Int]]

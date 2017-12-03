@@ -77,10 +77,5 @@ trait SyntaxSugar {
     */
   def ==[T](f: (T) ⇒ Boolean): T = argThat(f)
 
-  /**
-    * This equals to: {{{  org.mockito.ArgumentCaptor.forClass(classOf[T])  }}}
-    */
-  def argumentCaptor[T: Manifest]: ArgumentCaptor[T] = ArgumentCaptor.forClass(clazz)
-
   private def clazz[T: Manifest]: Class[T] = manifest.runtimeClass.asInstanceOf[Class[T]]
 }
