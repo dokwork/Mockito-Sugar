@@ -16,7 +16,7 @@ class MockitoSugarExamples extends FreeSpec with MockitoSugar {
     // or: verify(list).slice(any[Int], argThat[Int](_ > 0))
   }
 
-  "Examples for argument captor" in {
+  "Example for argument captor" in {
     // given:
     val list: List[Int] = mock[List[Int]]
     val captor = argumentCaptor[Int]
