@@ -74,19 +74,6 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.x.x" % "test"
     ```
     Arguments for functions will be the same arguments of the method which answer used for.
     
-* Provides [scalatest](http://www.scalatest.org)'s like matchers for mock verification:
-    ```scala
-    "Example of use" in new MockitoSugar {
-        // given:
-        val list: List[Int] = mock[List[Int]]
-        // when:
-        list.take(5)
-        // then:
-        list shouldHave invocation(_.take(any[Int]), atLeast(1)) // type of this expression is org.scalatest.Assertion.
-        // This is equals to verify(list, atLeast(1)).take(any[Int]), but returns Assertion instead List.
-      }
-    ```
-    
 See more examples here: [ru.dokwork.sugar.mockito.MockitoSugarExamples](/src/test/scala/ru/dokwork/sugar/mockito/MockitoSugarExamples.scala)
     
 
