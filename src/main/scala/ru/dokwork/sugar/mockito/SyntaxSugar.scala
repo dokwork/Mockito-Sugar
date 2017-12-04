@@ -22,28 +22,28 @@ trait SyntaxSugar {
   /**
     * This equals to: {{{  org.mockito.Mockito.mock(classOf[T])  }}}
     */
-  def mock[T <: AnyRef: Manifest] = {
+  def mock[T <: AnyRef: Manifest]: T = {
     Mockito.mock(clazz)
   }
 
   /**
     * This equals to: {{{  org.mockito.Mockito.mock(classOf[T], name)  }}}
     */
-  def mock[T <: AnyRef: Manifest](name: String) = {
+  def mock[T <: AnyRef: Manifest](name: String): T = {
     Mockito.mock(clazz, name)
   }
 
   /**
     * This equals to: {{{  org.mockito.Mockito.mock(classOf[T], defaultAnswer)  }}}
     */
-  def mock[T <: AnyRef: Manifest](defaultAnswer: Answer[_]) = {
+  def mock[T <: AnyRef: Manifest](defaultAnswer: Answer[_]): T = {
     Mockito.mock(clazz, defaultAnswer)
   }
 
   /**
     * This equals to: {{{  org.mockito.Mockito.mock(classOf[T], mockSettings)  }}}
     */
-  def mock[T <: AnyRef: Manifest](mockSettings: MockSettings) = {
+  def mock[T <: AnyRef: Manifest](mockSettings: MockSettings): T = {
     Mockito.mock(clazz, mockSettings)
   }
 
@@ -51,13 +51,6 @@ trait SyntaxSugar {
     * This equals to: {{{  org.mockito.ArgumentMatchers#any(classOf[T])  }}}
     */
   def any[T: Manifest]: T = {
-    ArgumentMatchers.any(clazz)
-  }
-
-  /**
-    * This equals to [[org.mockito.Mockito#any(scala.reflect.Manifest)]]
-    */
-  def *[T: Manifest]: T = {
     ArgumentMatchers.any(clazz)
   }
 
@@ -71,11 +64,6 @@ trait SyntaxSugar {
       override def matches(argument: T) = f(argument)
     })
   }
-
-  /**
-    * This equals to [[org.mockito.Mockito#argThat(scala.Function1)]]
-    */
-  def ==[T](f: (T) ⇒ Boolean): T = argThat(f)
 
   private def clazz[T: Manifest]: Class[T] = manifest.runtimeClass.asInstanceOf[Class[T]]
 }

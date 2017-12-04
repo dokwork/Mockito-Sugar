@@ -12,7 +12,7 @@ class MockitoSugarExamples extends FreeSpec with MockitoSugar {
     // when:
     list.slice(0, 5)
     // then:
-    verify(list).slice(*[Int], ==[Int](_ > 0))
+    verify(list).slice(any[Int], argThat[Int](_ > 0))
     // or: verify(list).slice(any[Int], argThat[Int](_ > 0))
   }
 
@@ -24,14 +24,14 @@ class MockitoSugarExamples extends FreeSpec with MockitoSugar {
     list.take(5)
     verify(list).take(captor)
     // then:
-    assert(captor.last == 5)
+    assert(captor.value == 5)
   }
 
   "Example for implicit answer" in {
     // given:
     val list: List[Int] = mock[List[Int]]
     // when:
-    doAnswer((n: Int) ⇒ (1 to n).toList).when(list).take(*[Int])
+    doAnswer((n: Int) ⇒ (1 to n).toList).when(list).take(any[Int])
     // then:
     assert(list.take(5) == (1 to 5).toList)
   }
@@ -42,7 +42,7 @@ class MockitoSugarExamples extends FreeSpec with MockitoSugar {
     // when:
     list.take(5)
     // then:
-    list shouldHave invocation(_.take(*[Int]), atLeast(1))
+    list shouldHave invocation(_.take(any[Int]), atLeast(1))
   }
 
   "Property-based test with shouldHave matcher" in new PropertyChecks {

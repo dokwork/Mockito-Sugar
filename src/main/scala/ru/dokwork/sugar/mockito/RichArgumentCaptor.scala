@@ -35,15 +35,15 @@ trait RichArgumentCaptor {
 
   implicit class RichArgumentCaptor[T](captor: ArgumentCaptor[T]) {
     /**
-      * Equals to [[org.mockito.ArgumentCaptor#get()]]
+      * Equals to [[org.mockito.ArgumentCaptor#getValue()]]
       */
-    def last: T = captor.getValue
+    def value: T = captor.getValue
 
     /**
-      * Equals to [[org.mockito.ArgumentCaptor#getAll()]], but returns [[scala.List]]
+      * Equals to [[org.mockito.ArgumentCaptor#getAllValues()]], but returns [[scala.List]]
       * instead [[java.util.List]].
       */
-    def all: List[T] = captor.getAllValues.asScala.toList
+    def values: List[T] = captor.getAllValues.asScala.toList
   }
 
   private def clazz[T: Manifest]: Class[T] = manifest.runtimeClass.asInstanceOf[Class[T]]

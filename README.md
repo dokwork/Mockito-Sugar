@@ -45,7 +45,7 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.x.x" % "test"
         list.take(5)
         verify(list).take(captor)
         // then:
-        assert(captor.last == 5)
+        assert(captor.value == 5)
     }
     ```    
 
@@ -57,8 +57,7 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.x.x" % "test"
         // when:
         list.slice(0, 5)
         // then:
-        verify(list).slice(*[Int], ==[Int](_ > 0))
-        // or: verify(list).slice(any[Int], argThat[Int](_ > 0))
+        verify(list).slice(any[Int], argThat[Int](_ > 0))
     }
     ```
     
@@ -68,7 +67,7 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.x.x" % "test"
         // given:
         val list: List[Int] = mock[List[Int]]
         // when:
-        doAnswer((n: Int) ⇒ (1 to n).toList).when(list).take(*[Int])
+        doAnswer((n: Int) ⇒ (1 to n).toList).when(list).take(any[Int])
         // then:
         assert(list.take(5) == (1 to 5).toList)
     }
@@ -83,8 +82,8 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.x.x" % "test"
         // when:
         list.take(5)
         // then:
-        list shouldHave invocation(_.take(*[Int]), atLeast(1)) // type of this expression is org.scalatest.Assertion.
-        // This is equals to verify(list, atLeast(1)).take(*[Int]), but returns Assertion instead List.
+        list shouldHave invocation(_.take(any[Int]), atLeast(1)) // type of this expression is org.scalatest.Assertion.
+        // This is equals to verify(list, atLeast(1)).take(any[Int]), but returns Assertion instead List.
       }
     ```
     
