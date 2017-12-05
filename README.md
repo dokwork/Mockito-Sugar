@@ -35,6 +35,18 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.x.x" % "test"
     mock[MyClass]
     ```   
     
+* Sugar for argument matchers:
+    ```scala
+    "Example for argument matchers" in new MockitoSugar {
+        // given:
+        val list: List[Int] = mock[List[Int]]
+        // when:
+        list.slice(0, 5)
+        // then:
+        verify(list).slice(*, argThat[Int](_ > 0))
+    }
+    ```
+    
 * Syntax like [Matchers](http://www.scalatest.org/user_guide/using_matchers) 
   from scalatest for mock verification:
     ```scala
@@ -44,23 +56,11 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.x.x" % "test"
         // when:
         list.take(5)
         // then:
-        list shouldHave invocation(_.take(any[Int]), atLeast(1)) 
-        // This is equals to verify(list, atLeast(1)).take(any[Int]), 
+        list shouldHave invocation(_.take(*), atLeast(1)) 
+        // This is equals to verify(list, atLeast(1)).take(*), 
         // but returns Assertion instead List.
       }
     ```    
-    
-* Sugar for argument matchers:
-    ```scala
-    "Example for argument matchers" in new MockitoSugar {
-        // given:
-        val list: List[Int] = mock[List[Int]]
-        // when:
-        list.slice(0, 5)
-        // then:
-        verify(list).slice(any[Int], argThat[Int](_ > 0))
-    }
-    ```
     
 * Sugar for `ArgumentCaptor`:
     ```scala
@@ -98,7 +98,7 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.x.x" % "test"
         // given:
         val list: List[Int] = mock[List[Int]]
         // when:
-        doAnswer((n: Int) ⇒ (1 to n).toList).when(list).take(any[Int])
+        doAnswer((n: Int) ⇒ (1 to n).toList).when(list).take(*)
         // then:
         assert(list.take(5) == (1 to 5).toList)
     }

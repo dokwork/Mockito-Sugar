@@ -48,10 +48,22 @@ trait SyntaxSugar {
   }
 
   /**
+    * This equals to: {{{  org.mockito.ArgumentMatchers#any()  }}}
+    */
+  def *[T]: T = ArgumentMatchers.any[T]()
+
+  /**
     * This equals to: {{{  org.mockito.ArgumentMatchers#any(classOf[T])  }}}
     */
   def any[T: Manifest]: T = {
     ArgumentMatchers.any(clazz)
+  }
+
+  /**
+    * This equals to: {{{  org.mockito.ArgumentMatchers#eq(java.lang.Object)  }}}
+    */
+  def arg[T](v: T): T = {
+    ArgumentMatchers.eq(v)
   }
 
   /**
