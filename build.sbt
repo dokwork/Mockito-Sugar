@@ -7,6 +7,7 @@ lazy val mockitoSugar = (project in file("."))
     scalacOptions ++= Seq("-unchecked", "-deprecation", "-feature"),
     libraryDependencies ++= Seq(
       "org.mockito" % "mockito-core" % "2.12.0" % "provided",
+      "org.scalatest" %% "scalatest" % "3.0.4" % "provided",
       // tests:
       "org.scalatest" %% "scalatest" % "3.0.0" % "test"
     ),

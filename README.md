@@ -35,6 +35,33 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.x.x" % "test"
     mock[MyClass]
     ```   
     
+* Syntax like [Matchers](http://www.scalatest.org/user_guide/using_matchers) 
+  from scalatest for mock verification:
+    ```scala
+    "Example of use matcher" in new MockitoSugar {
+        // given:
+        val list: List[Int] = mock[List[Int]]
+        // when:
+        list.take(5)
+        // then:
+        list shouldHave invocation(_.take(any[Int]), atLeast(1)) 
+        // This is equals to verify(list, atLeast(1)).take(any[Int]), 
+        // but returns Assertion instead List.
+      }
+    ```    
+    
+* Sugar for argument matchers:
+    ```scala
+    "Example for argument matchers" in new MockitoSugar {
+        // given:
+        val list: List[Int] = mock[List[Int]]
+        // when:
+        list.slice(0, 5)
+        // then:
+        verify(list).slice(any[Int], argThat[Int](_ > 0))
+    }
+    ```
+    
 * Sugar for `ArgumentCaptor`:
     ```scala
     "Examples for argument captor" in new MockitoSugar {
@@ -48,18 +75,22 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.x.x" % "test"
         assert(captor.value == 5)
     }
     ```    
-
-* Sugar for argument matchers:
+* Short syntax to describe answer with `Future`:
     ```scala
-    "Example for argument matchers" in new MockitoSugar {
-        // given:
-        val list: List[Int] = mock[List[Int]]
-        // when:
-        list.slice(0, 5)
-        // then:
-        verify(list).slice(any[Int], argThat[Int](_ > 0))
+    "Example for answer with Future" in new MockitoSugar {
+      // given:
+      trait Example {
+        def doSomething: Future[String]
+      }
+      val example = mock[Example]
+      when(example.doSomething).thenReturnAsFuture("Hello world!")
+      // when:
+      val result = example.doSomething
+      // then:
+      assert(result.isInstanceOf[Future[String]])
+      result.map(s ⇒ assert(s == "Hello world!"))
     }
-    ```
+    ```    
     
 * Implicit  conversion functions to Answers: 
      ```scala
