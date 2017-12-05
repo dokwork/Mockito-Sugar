@@ -35,17 +35,16 @@ libraryDependencies += "org.scalatest" %% "scalatest" % "3.x.x" % "test"
     mock[MyClass]
     ```   
     
-* Syntax like [Matchers](https://github.com/scalatest/scalatest/blob/3.0.x/scalatest/src/main/scala/org/scalatest/Matchers.scala) 
+* Syntax like [Matchers](http://www.scalatest.org/user_guide/using_matchers) 
   from scalatest for mock verification:
     ```scala
-    "Example of use" in new MockitoSugar {
+    "Example of use matcher" in new MockitoSugar {
         // given:
         val list: List[Int] = mock[List[Int]]
         // when:
         list.take(5)
         // then:
         list shouldHave invocation(_.take(any[Int]), atLeast(1)) 
-        // Type of this expression is org.scalatest.Assertion.
         // This is equals to verify(list, atLeast(1)).take(any[Int]), 
         // but returns Assertion instead List.
       }
